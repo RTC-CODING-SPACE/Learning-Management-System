@@ -1,0 +1,1 @@
+exports.passwordUtil = require('./encypt_password');

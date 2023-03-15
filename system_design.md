@@ -3,42 +3,46 @@
 ## USER GROUP
 
 1. Admin - ผู้ดูแลระบบ (สถานศึกษา)
-2. Teacher - อาจารย์ผู้สร้างรายวิชาการสอน (อาจารย์ภายในโรงเรียน)
-3. Student - นักเรียน / นักศึกษา ที่ต้องการเรียนแต่ละรายวิชา (นักเรียนจากทุกที่)
+2. Executive - ผู้บริหารผู้ดูความคืบหน้า
+3. Teacher -อาจารย์ผู้เข้าอบรม
 
 ## USE CASE (Pain Text)
 
-1. Admin
+1. Admin (ผู้ดูแลระบบ)
    - เข้าสู่ระบบด้วย อีเมล และ รหัสผ่าน
-   - ดูข้อมูลผู้ใช้ทั้งหมดได้ ได้แก่ teacher และ student
-     - แก้ไขข้อมูล teacher และ student ได้
-     - เพิ่ม teacher ได้
-     - ระงับ/ยกเลิกการระงับ teacher และ student ได้
-   - ดูรายวิชาที่เปิดสอนทั้งหมดได้
-     - ระงับรายวิชาได้ กรณีที่ตรวจสอบและมีความผิดปกติ
-     - ลบนักเรียนในรายวิชา
+   - ดูข้อมูลผู้ใช้ทั้งหมดได้ ได้แก่ teacher และ Executive
+     - แก้ไขข้อมูล teacher และ Executive ได้
+     - เพิ่ม Executive ได้
+     - ระงับ/ยกเลิกการระงับ Executive และ Teacher ได้
+   - ดูรายการอบรมทั้งหมด
+   - ดูคาบคืบหน้าผู้เข้าอบรมแต่ละคน
+     <!-- - ระงับรายวิชาได้ กรณีที่ตรวจสอบและมีความผิดปกติ -->
+     <!-- - ลบนักเรียนในรายวิชา -->
 
-2. Teacher
-   - เข้าสู่ระบบด้วย อีเมล และ รหัสผ่าน
-     - ลืมรหัสผ่าน
-   - ดูรายวิชาที่สอนทั้งหมด
-   - แก้ไขข้อมูลส่วนตัว / เปลี่ยนรหัสผ่าน
-   - จัดการรายวิชาที่สอน
-     - เพิ่ม แก้ไข ลบ รายวิชา
-     - ดูรายชื่อนักเรียนในรายวิชา
-     - ปิด/เปิด รายวิชาที่สอน
-     - เพิ่มเนื้อหา ....
+2. Executive (ผู้บริหาร)
+    - เข้าสู่ระบบด้วย อีเมล และ รหัสผ่าน
+        - ลืมรหัสผ่าน
+    - ดูรายการอบรมทั้งหมด
+        - ดูคาบคืบหน้าผู้เข้าอบรมแต่ละคน
+    - แก้ไขข้อมูลส่วนตัว / เปลี่ยนรหัสผ่าน
+    <!-- - จัดการรายวิชาที่สอน -->
+     <!-- - เพิ่ม แก้ไข ลบ รายวิชา -->
+     <!-- - ดูผู้อบรมทั้งหมด
+     - ปิด/เปิด รายวิชาที่สอน -->
+     <!-- - เพิ่มเนื้อหา ....
        - เพิ่มบทเรียน
        - เพิ่มไฟล์แนบแต่ละบืเรียน
-       - เพิ่มวิดีโอแต่ละบทเรียน
+       - เพิ่มวิดีโอแต่ละบทเรียน -->
 
-3. Student
+3. Teacher (อาจารย์ผู้เข้าอบรม)
    - สมัครสมาชิก
    - เข้าสู่ระบบด้วย อีเมล และ รหัสผ่าน
      - ลืมรหัสผ่าน
    - ดูรายวิชาที่เปิดสอนทั้งหมด
-   - ลงทะเบียนเรียนรายวิชา
-   - ดูรายวิชาที่ลงทะเบียนเรียนทั้งหมด
+   - ดูใบเกียรติบัตร
+    - ปริ้นใบเกียรติบัตร
+   <!-- - ลงทะเบียนเรียนรายวิชา -->
+   - ดูอบรมที่มีทั้งหมด
    - แก้ไขข้อมูลส่วนตัว / เปลี่ยนรหัสผ่าน
 
 ## VERIFICATION SYSTEM
@@ -112,3 +116,41 @@ use email token verification
   - content_type
   - attach_files
   - created_date
+
+  ## users
+| Column        | type          | desp                                         |
+| ------------- |---------------|----------------------------------------------|
+| user_id       | int           | PK for user id.                              |
+| email         | varchar(100)  | user's email.                                |
+| password      | varchar(100)  | hashed user's password.                      |
+| is_verified   | int           | verify status.                               |
+| authToken     | varchar(50)   | for login cookie.                            |
+
+## users_information
+| Column        | type          | desp                                         |
+| ------------- |---------------|----------------------------------------------|
+| user_id       | int           | user id from users table.                    |
+| title         | varchar(100)  | title of name; Mr. Ms. Mrs.                  |
+| name          | varchar(100)  | user's name.                                 |
+| picture       | varchar(50)   | user's picture name.                         |
+| created_date  | datetime      | created user date.                           |
+| role          | int           | user's role.                                 |
+
+## email_verifications
+| Column        | type          | desp                                         |
+| ------------- |---------------|----------------------------------------------|
+| user_id       | int           | user id from users table.                    |
+| token         | varchar(50)   | token sent to email.                         |
+| expired_date  | datetime      | expired time for verify. default 15 min      |
+
+## forgot_password
+| Column        | type          | desp                                             |
+| ------------- |---------------|--------------------------------------------------|
+| user_id       | int           | user id from users table.                        |
+| reset_token   | varchar(50)   | token sent to email.                             |
+| expired_date  | datetime      | expired time for reset password. default 15 min  |
+
+
+[{name: akld, email: asdasdad}, {name: akld, email: asdasdad}]
+
+(name, email) value (akld, asdasdas), 

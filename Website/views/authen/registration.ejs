@@ -1,0 +1,51 @@
+<%- include('../partials/_header.ejs')%>
+<body>
+    <h1>Registration</h1>
+    <form id="login-form">
+        <label for="">Email</label>
+        <input type="email" name="email" id="email" required />
+        <br /><br />
+        <label for="">Password</label>
+        <input type="password" name="password" id="password" minlength="8" required />
+        <br /><br />
+        <label for="">Retype Password</label>
+        <input type="password" id="retype-password" required /> 
+        <br /><br />
+        <label for="">Title</label>
+        <select name="title" id="title" required>
+            <option value="" selected disabled>Select title</option>
+            <option value="Mr">Mr.</option>
+            <option value="Mrs">Mrs.</option>
+            <option value="Ms">Ms.</option>
+        </select>
+        <input type="hidden" value="teacher" name="role">
+        <br /><br />
+        <label for="">First name</label>
+        <input type="text" name="first_name" required />
+        <br /><br />
+        <label for="">Last name</label>
+        <input type="text" name="last_name" required />
+        <br />
+        <br />
+        <small>มีบัญชีแล้ว? <a href="/login">เข้าสู่ระบบ</a></small>
+        <br />
+        <br />
+        <button type="submit">sign up</button>
+    </form>
+</body>
+<script>
+    $(document).ready(function() {
+        $('#login-form').submit(function(e) {
+            e.preventDefault()
+            $.post(
+                "/API/registration/",
+                $('#login-form').serialize(),
+                function(data) {
+
+                }
+            )
+        })
+    })
+</script>
+
+</html>
